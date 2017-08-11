@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+
+    <head>
+        <link rel = "stylesheet" type = "text/css" href = "/css/stylesheet.css"/>
+        <title>Patients</title>
+        <ul>
+            <li><a href="/patient">Patient</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/doctor">Doctor</a></li>
+            <li><a href="/schedule">Schedule</a></li>
+            <li><a href="/visit">Visit</a></li>
+            <li><a href="/frontdeskstaff">Front Desk Staff</a></li>
+        </ul>
+    </head>
+    <body>
+
+    <form id="formshower">
+        <select id="selectbox" onchange="changeFunc();">
+            <option value="">Selected</option>
+            <option value="add">Add</option>
+            <option value="delete">Delete</option>
+            <option value="find">Find</option>
+            <option value="all">All</option>
+        </select>
+    </form>
+
+
+    <form name="add" th:action="@{/patient/add}" method="post" id="add" style="display:none">
+        <div><label> Name : <input type="text" name="name"/> </label></div>
+        <div><label> Add by doctor id : <input type="text" name="docid"/> </label></div>
+        <div><input type="submit" value="Submit"/></div>
+    </form>
+
+    <form name="find" th:action="@{/patient/find}" method="post" id="find" style="display:none">
+        <div><label> ID : <input type="text" name="id"/> </label></div>
+        <div><input type="submit" value="Submit"/></div>
+    </form>
+
+    <form name="delete" th:action="@{/patient/delete}" method="post" id="delete" style="display:none">
+        <div><label> ID : <input type="text" name="id"/> </label></div>
+        <div><input type="submit" value="Submit"/></div>
+    </form>
+
+    <form name="all" th:action="@{/patient}" method="post" id="all" style="display:none">
+        <div><input type="submit" value="Submit"/></div>
+    </form>
+
+    <script type="text/javascript">
+        function changeFunc()
+        {
+            var selectedVal = selectbox.options[selectbox.selectedIndex].value;
+            document.getElementById(selectedVal).style.display = 'block';
+        }
+    </script>
+
+
+
+        <h2>Patients</h2>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Doctor ID</th>
+                <th>Doctor Name</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="patient : ${patients}">
+                <td th:text="${patient.patId}">id</td>
+                <td th:text="${patient.name}">name</td>
+                <td th:text="${patient.doctorByDocId.docId}">id</td>
+                <td th:text="${patient.doctorByDocId.docName}">id</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+    </body>
+</html>

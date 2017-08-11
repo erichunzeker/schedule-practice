@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    <link rel = "stylesheet" type = "text/css" href = "/css/stylesheet.css"/>
+    <title>Visit</title>
+
+    <ul>
+        <li><a href="/patient">Patient</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/doctor">Doctor</a></li>
+        <li><a href="/schedule">Schedule</a></li>
+        <li><a href="/visit">Visit</a></li>
+        <li><a href="/frontdeskstaff">Front Desk Staff</a></li>
+    </ul>
+</head>
+
+<form id="formshower">
+    <select id="selectbox" onchange="changeFunc();">
+        <option value="">Selected</option>
+        <option value="add">Add</option>
+        <option value="delete">Delete</option>
+        <option value="find">Find</option>
+        <option value="all">All</option>
+    </select>
+</form>
+
+
+<form name="add" th:action="@{/visit/add}" method="post" id="add" style="display:none">
+    <div><label> Add by schedule id : <input type="text" name="id"/> </label></div>
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<form name="find" th:action="@{/visit/find}" method="post" id="find" style="display:none">
+    <div><label> ID : <input type="text" name="id"/> </label></div>
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<form name="delete" th:action="@{/visit/delete}" method="post" id="delete" style="display:none">
+    <div><label> ID : <input type="text" name="id"/> </label></div>
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<form name="all" th:action="@{/visit}" method="post" id="all" style="display:none">
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<script type="text/javascript">
+    function changeFunc()
+    {
+        var selectedVal = selectbox.options[selectbox.selectedIndex].value;
+        document.getElementById(selectedVal).style.display = 'block';
+    }
+</script>
+
+<body>
+
+<h2>Visits</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Visit ID</th>
+        <th>Schedule ID</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="visit : ${visits}">
+        <td th:text="${visit.visitId}">id</td>
+        <td th:text="${visit.scheduleByScheduleId.scheduleId}">scheduleId</td>
+    </tr>
+
+    </tbody>
+</table>
+
+</body>
+</html>

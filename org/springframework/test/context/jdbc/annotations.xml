@@ -1,0 +1,5 @@
+<root>
+    <item name='org.springframework.test.context.jdbc.Sql org.springframework.test.context.jdbc.Sql.ExecutionPhase executionPhase()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

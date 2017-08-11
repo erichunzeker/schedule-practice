@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    <link rel = "stylesheet" type = "text/css" href = "/css/stylesheet.css"/>
+    <title>Schedule</title>
+
+    <ul>
+        <li><a href="/patient">Patient</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/doctor">Doctor</a></li>
+        <li><a href="/schedule">Schedule</a></li>
+        <li><a href="/visit">Visit</a></li>
+        <li><a href="/frontdeskstaff">Front Desk Staff</a></li>
+    </ul>
+</head>
+
+<form id="formshower">
+    <select id="selectbox" onchange="changeFunc();">
+        <option value="">Selected</option>
+        <option value="add">Add</option>
+        <option value="delete">Delete</option>
+        <option value="find">Find</option>
+        <option value="all">All</option>
+    </select>
+</form>
+
+
+<form name="add" th:action="@{/schedule/add}" method="post" id="add" style="display:none">
+    <div><label> Front Desk Staff ID : <input type="text" name="id"/> </label></div>
+    <div><label> Add by doctor id : <input type="text" name="docid"/> </label></div>
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<form name="find" th:action="@{/schedule/find}" method="post" id="find" style="display:none">
+    <div><label> ID : <input type="text" name="id"/> </label></div>
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<form name="delete" th:action="@{/schedule/delete}" method="post" id="delete" style="display:none">
+    <div><label> ID : <input type="text" name="id"/> </label></div>
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<form name="all" th:action="@{/schedule}" method="post" id="all" style="display:none">
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<script type="text/javascript">
+    function changeFunc()
+    {
+        var selectedVal = selectbox.options[selectbox.selectedIndex].value;
+        document.getElementById(selectedVal).style.display = 'block';
+    }
+</script>
+
+<body>
+
+<h2>Schedule</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Front Desk Staff ID </th>
+        <th>Front Desk Staff Last Name</th>
+        <th>Doctor ID</th>
+        <th>Doctor Name</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="schedule : ${schedules}">
+        <td th:text="${schedule.scheduleId}">id</td>
+        <td th:text="${schedule.frontDeskStaffByFrontDeskStaffId.frontDeskStaffId}">frontDeskStaffId</td>
+        <td th:text="${schedule.frontDeskStaffByFrontDeskStaffId.lastName}">frontDeskStaffId</td>
+        <td th:text="${schedule.doctorByDocId.docId}">docId</td>
+        <td th:text="${schedule.doctorByDocId.docName}">docId</td>
+    </tr>
+
+    </tbody>
+</table>
+
+</body>
+</html>

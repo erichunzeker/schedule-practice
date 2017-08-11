@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel = "stylesheet" type = "text/css" href = "/css/stylesheet.css"/>
+    <title>Doctor</title>
+
+    <ul>
+        <li><a href="/patient">Patient</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/doctor">Doctor</a></li>
+        <li><a href="/schedule">Schedule</a></li>
+        <li><a href="/visit">Visit</a></li>
+        <li><a href="/frontdeskstaff">Front Desk Staff</a></li>
+    </ul>
+</head>
+
+<form id="formshower">
+    <select id="selectbox" onchange="changeFunc();">
+        <option value="">Selected</option>
+        <option value="add">Add</option>
+        <option value="delete">Delete</option>
+        <option value="find">Find</option>
+        <option value="all">All</option>
+    </select>
+</form>
+
+
+<form name="add" th:action="@{/doctor/add}" method="post" id="add" style="display:none">
+    <div><label> Name : <input type="text" name="name"/> </label></div>
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<form name="find" th:action="@{/doctor/find}" method="post" id="find" style="display:none">
+    <div><label> ID : <input type="text" name="id"/> </label></div>
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<form name="delete" th:action="@{/doctor/delete}" method="post" id="delete" style="display:none">
+    <div><label> ID : <input type="text" name="id"/> </label></div>
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<form name="all" th:action="@{/doctor}" method="post" id="all" style="display:none">
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+
+<script type="text/javascript">
+    function changeFunc()
+    {
+        var selectedVal = selectbox.options[selectbox.selectedIndex].value;
+        document.getElementById(selectedVal).style.display = 'block';
+    }
+</script>
+
+<body>
+
+<h2>Doctors</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="doctor : ${doctors}">
+        <td th:text="${doctor.docId}">id</td>
+        <td th:text="${doctor.docName}">name</td>
+    </tr>
+
+    </tbody>
+</table>
+
+</body>
+</html>

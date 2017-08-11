@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    <link rel = "stylesheet" type = "text/css" href = "/css/stylesheet.css"/>
+    <title>Front Desk Staff</title>
+
+    <ul>
+        <li><a href="/patient">Patient</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/doctor">Doctor</a></li>
+        <li><a href="/schedule">Schedule</a></li>
+        <li><a href="/visit">Visit</a></li>
+        <li><a href="/frontdeskstaff">Front Desk Staff</a></li>
+    </ul>
+</head>
+
+<form id="formshower">
+    <select id="selectbox" onchange="changeFunc();">
+        <option value="">Selected</option>
+        <option value="add">Add</option>
+        <option value="delete">Delete</option>
+        <option value="find">Find</option>
+        <option value="all">All</option>
+    </select>
+</form>
+
+<form name="add" th:action="@{/frontdeskstaff/add}" method="post" id="add" style="display:none">
+    <div><label> Add by first name : <input type="text" name="firstname"/> </label></div>
+    <div><label> Add by last name : <input type="text" name="lastname"/> </label></div>
+    <div><input type="submit" value="Add"/></div>
+</form>
+
+<form name="delete" th:action="@{/frontdeskstaff/delete}" method="get" id="delete" style="display:none">
+    <div><label> Delete by id : <input type="text" name="id"/> </label></div>
+    <div><input type="submit" value="Delete"/></div>
+</form>
+
+<form name="find" th:action="@{/frontdeskstaff/find}" method="get" id="find" style="display:none">
+    <div><label> Find by id : <input type="text" name="id"/> </label></div>
+    <div><input type="submit" value="Find"/></div>
+</form>
+
+<form name="all" th:action="@{/frontdeskstaff}" method="post" id="all" style="display:none">
+    <div><input type="submit" value="Submit"/></div>
+</form>
+
+<script type="text/javascript">
+    function changeFunc()
+    {
+        var selectedVal = selectbox.options[selectbox.selectedIndex].value;
+        document.getElementById(selectedVal).style.display = 'block';
+    }
+</script>
+
+<body>
+
+<h2>Front Desk Staff</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="frontDeskStaff : ${frontdeskstaffs}">
+        <td th:text="${frontDeskStaff.frontDeskStaffId}">frontDeskStaffId</td>
+        <td th:text="${frontDeskStaff.firstName}">firstName</td>
+        <td th:text="${frontDeskStaff.lastName}">lastName</td>
+    </tr>
+
+    </tbody>
+</table>
+
+
+</body>
+</html>
+
+
+
+
