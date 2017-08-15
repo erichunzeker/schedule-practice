@@ -27,8 +27,7 @@ import static org.junit.Assert.*;
 @ActiveProfiles("test")
 @Rollback
 @Transactional
-public class FrontDeskStaffRepositoryTest 
-{
+public class FrontDeskStaffRepositoryTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -36,8 +35,7 @@ public class FrontDeskStaffRepositoryTest
     private FrontDeskStaffRepository frontDeskStaffRepository;
 
     @Test
-    public void testFrontDeskStaffTable()
-    {
+    public void testFrontDeskStaffTable() {
         String selectQuery = "Select * from front_desk_staff where front_desk_staff_id = 2";
         List resultSet = jdbcTemplate.queryForList(selectQuery);
 
@@ -45,8 +43,7 @@ public class FrontDeskStaffRepositoryTest
     }
 
     @Test
-    public void saveOneNewFrontDeskStaffTest()
-    {
+    public void saveOneNewFrontDeskStaffTest() {
         FrontDeskStaffEntity f = new FrontDeskStaffEntity();
         f.setLastName("NewFrontDeskStaff7");
         f.setFirstName("Staff");
@@ -56,8 +53,7 @@ public class FrontDeskStaffRepositoryTest
 
 
     @Test
-    public void saveListOfFrontDeskStaffsTest()
-    {
+    public void saveListOfFrontDeskStaffsTest() {
         ArrayList<FrontDeskStaffEntity> fList = new ArrayList<>();
         FrontDeskStaffEntity e1 = new FrontDeskStaffEntity();
         FrontDeskStaffEntity e2 = new FrontDeskStaffEntity();
@@ -85,8 +81,7 @@ public class FrontDeskStaffRepositoryTest
 
 
     @Test
-    public void findOneTest()
-    {
+    public void findOneTest() {
         Integer i = 1;
         FrontDeskStaffEntity f = frontDeskStaffRepository.findOne(i);
         assertEquals(new Integer(1), new Integer(f.getFrontDeskStaffId()));
@@ -94,24 +89,21 @@ public class FrontDeskStaffRepositoryTest
 
 
     @Test
-    public void existsTest()
-    {
+    public void existsTest() {
         assertTrue(frontDeskStaffRepository.exists(2));
         assertFalse(frontDeskStaffRepository.exists(7));
     }
 
 
     @Test
-    public void findAllTest()
-    {
+    public void findAllTest() {
         Iterable<FrontDeskStaffEntity> f = frontDeskStaffRepository.findAll();
         assertEquals(f.spliterator().getExactSizeIfKnown(), frontDeskStaffRepository.count());
     }
 
 
     @Test
-    public void findAllSpecifiedTest()
-    {
+    public void findAllSpecifiedTest() {
         ArrayList<FrontDeskStaffEntity> fList = new ArrayList<>();
         fList.add(0, frontDeskStaffRepository.findOne(1));
         fList.add(1, frontDeskStaffRepository.findOne(2));
@@ -127,8 +119,7 @@ public class FrontDeskStaffRepositoryTest
     }
 
     @Test
-    public void countTest()
-    {
+    public void countTest() {
 
         String selectQuery = "SELECT * FROM front_desk_staff";
         List resultSet = jdbcTemplate.queryForList(selectQuery);
@@ -137,24 +128,21 @@ public class FrontDeskStaffRepositoryTest
     }
 
     @Test
-    public void deleteByFrontDeskStaffIdTest()
-    {
+    public void deleteByFrontDeskStaffIdTest() {
         frontDeskStaffRepository.delete(1);
         assertFalse(frontDeskStaffRepository.exists(1));
     }
 
 
     @Test
-    public void deleteByFrontDeskStaffEntityTest()
-    {
+    public void deleteByFrontDeskStaffEntityTest() {
         frontDeskStaffRepository.delete(frontDeskStaffRepository.findOne(1));
         assertFalse(frontDeskStaffRepository.exists(1));
     }
 
 
     @Test
-    public void deleteMultipleFrontDeskStaffsTest()
-    {
+    public void deleteMultipleFrontDeskStaffsTest() {
         ArrayList<FrontDeskStaffEntity> fList = new ArrayList<>();
 
         fList.add(frontDeskStaffRepository.findOne(1));
@@ -170,8 +158,7 @@ public class FrontDeskStaffRepositoryTest
 
 
     @Test
-    public void deleteAllTest()
-    {
+    public void deleteAllTest() {
         Iterable<FrontDeskStaffEntity> f = frontDeskStaffRepository.findAll();
         frontDeskStaffRepository.delete(f);
         assertEquals(0, frontDeskStaffRepository.count());

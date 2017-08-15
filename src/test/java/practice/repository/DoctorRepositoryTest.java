@@ -1,8 +1,5 @@
 package practice.repository;
 
-import org.hibernate.SQLQuery;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,8 +123,7 @@ public class DoctorRepositoryTest {
     }
 
     @Test
-    public void deleteByDocIdTest()
-    {
+    public void deleteByDocIdTest() {
         doctorRepository.delete(1);
         assertFalse(doctorRepository.exists(1));
     }

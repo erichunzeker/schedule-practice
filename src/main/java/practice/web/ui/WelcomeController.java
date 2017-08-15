@@ -11,12 +11,12 @@ public class WelcomeController {
 
 
     @RequestMapping("/")
-    public String home(){
+    public String home() {
         return "menu";
     }
 
     @RequestMapping("/menu")
-    public String homeMenu(){
+    public String homeMenu() {
         return "menu";
     }
 }

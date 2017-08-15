@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link rel = "stylesheet" type = "text/css" href = "/css/stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/stylesheet.css"/>
     <title>Contact</title>
 
     <ul>
@@ -47,8 +47,7 @@
 
 
 <script type="text/javascript">
-    function changeFunc()
-    {
+    function changeFunc() {
         var selectedVal = selectbox.options[selectbox.selectedIndex].value;
         document.getElementById(selectedVal).style.display = 'block';
     }
@@ -58,27 +57,28 @@
 
 <h2>Contacts</h2>
 
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Patient ID</th>
-        <th>Patient Name</th>
+<div style="height: 400px; overflow: auto;">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
 
-    </tr>
-    </thead>
-    <tbody>
+        </tr>
+        </thead>
+        <tbody>
 
-    <tr th:each="contact : ${contacts}">
-        <td th:text="${contact.contactId}">id</td>
-        <td th:text="${contact.contactName}">name</td>
-        <td th:text="${contact.patientByPatId.patId}">id</td>
-        <td th:text="${contact.patientByPatId.name}">name</td>
-    </tr>
+        <tr th:each="contact : ${contacts}">
+            <td th:text="${contact.contactId}">id</td>
+            <td th:text="${contact.contactName}">name</td>
+            <td th:text="${contact.patientByPatId.patId}">id</td>
+            <td th:text="${contact.patientByPatId.name}">name</td>
+        </tr>
 
-    </tbody>
-</table>
-
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

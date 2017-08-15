@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import practice.model.DoctorEntity;
 import practice.model.FrontDeskStaffEntity;
 import practice.model.ScheduleEntity;
-import practice.model.ScheduleEntity;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -30,8 +29,7 @@ import static org.junit.Assert.*;
 @ActiveProfiles("test")
 @Rollback
 @Transactional
-public class ScheduleRepositoryTest
-{
+public class ScheduleRepositoryTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -40,8 +38,7 @@ public class ScheduleRepositoryTest
 
     @Test
     @After
-    public void testScheduleTable()
-    {
+    public void testScheduleTable() {
         String selectQuery = "Select * from schedule";// where schedule_id = 4";
         List resultSet = jdbcTemplate.queryForList(selectQuery);
 
@@ -49,8 +46,7 @@ public class ScheduleRepositoryTest
     }
 
     @Test
-    public void saveOneNewScheduleTest()
-    {
+    public void saveOneNewScheduleTest() {
         ScheduleEntity s = new ScheduleEntity();
 
         DoctorEntity doctor = new DoctorEntity();
@@ -67,8 +63,7 @@ public class ScheduleRepositoryTest
 
 
     @Test
-    public void saveListOfSchedulesTest()
-    {
+    public void saveListOfSchedulesTest() {
         ArrayList<ScheduleEntity> sList = new ArrayList<>();
         ScheduleEntity e1 = new ScheduleEntity();
         ScheduleEntity e2 = new ScheduleEntity();
@@ -104,8 +99,7 @@ public class ScheduleRepositoryTest
 
 
     @Test
-    public void findOneTest()
-    {
+    public void findOneTest() {
         Integer i = 1;
         ScheduleEntity s = scheduleRepository.findOne(i);
         assertEquals(new Integer(1), s.getScheduleId());
@@ -113,24 +107,21 @@ public class ScheduleRepositoryTest
 
 
     @Test
-    public void existsTest()
-    {
+    public void existsTest() {
         assertTrue(scheduleRepository.exists(2));
         assertFalse(scheduleRepository.exists(7));
     }
 
 
     @Test
-    public void findAllTest()
-    {
+    public void findAllTest() {
         Iterable<ScheduleEntity> s = scheduleRepository.findAll();
         assertEquals(s.spliterator().getExactSizeIfKnown(), scheduleRepository.count());
     }
 
 
     @Test
-    public void findAllSpecifiedTest()
-    {
+    public void findAllSpecifiedTest() {
         ArrayList<ScheduleEntity> cList = new ArrayList<>();
         cList.add(0, scheduleRepository.findOne(1));
         cList.add(1, scheduleRepository.findOne(2));
@@ -146,8 +137,7 @@ public class ScheduleRepositoryTest
     }
 
     @Test
-    public void countTest()
-    {
+    public void countTest() {
 
         String selectQuery = "SELECT * FROM schedule\n";
         List resultSet = jdbcTemplate.queryForList(selectQuery);
@@ -156,24 +146,21 @@ public class ScheduleRepositoryTest
     }
 
     @Test
-    public void deleteByScheduleIdTest()
-    {
+    public void deleteByScheduleIdTest() {
         scheduleRepository.delete(1);
         assertFalse(scheduleRepository.exists(1));
     }
 
 
     @Test
-    public void deleteByScheduleEntityTest()
-    {
+    public void deleteByScheduleEntityTest() {
         scheduleRepository.delete(scheduleRepository.findOne(1));
         assertFalse(scheduleRepository.exists(1));
     }
 
 
     @Test
-    public void deleteMultipleSchedulesTest()
-    {
+    public void deleteMultipleSchedulesTest() {
         ArrayList<ScheduleEntity> sList = new ArrayList<>();
 
         sList.add(scheduleRepository.findOne(1));
@@ -189,8 +176,7 @@ public class ScheduleRepositoryTest
 
 
     @Test
-    public void deleteAllTest()
-    {
+    public void deleteAllTest() {
         Iterable<ScheduleEntity> s = scheduleRepository.findAll();
         scheduleRepository.delete(s);
         assertEquals(0, scheduleRepository.count());

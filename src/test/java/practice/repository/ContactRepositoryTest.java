@@ -23,8 +23,7 @@ import static org.junit.Assert.*;
 @ActiveProfiles("test")
 @Rollback
 @Transactional
-public class ContactRepositoryTest
-{
+public class ContactRepositoryTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
@@ -33,8 +32,7 @@ public class ContactRepositoryTest
     private PatientRepository patientRepository;
 
     @Test
-    public void testContactTable()
-    {
+    public void testContactTable() {
         String selectQuery = "SELECT *\n" +
                 "FROM contact\n" +
                 "LEFT JOIN patient ON contact.pat_id = patient.pat_id";
@@ -45,8 +43,7 @@ public class ContactRepositoryTest
 
 
     @Test
-    public void saveOneNewContactTest()
-    {
+    public void saveOneNewContactTest() {
         ContactEntity c = new ContactEntity();
         c.setContactName("NewContact10");
         c.setPatientByPatId(patientRepository.findOne(5));
@@ -57,8 +54,7 @@ public class ContactRepositoryTest
 
 
     @Test
-    public void saveListOfContactsTest()
-    {
+    public void saveListOfContactsTest() {
         ArrayList<ContactEntity> cLists = new ArrayList<>();
         ContactEntity e1 = new ContactEntity();
         ContactEntity e2 = new ContactEntity();
@@ -83,8 +79,7 @@ public class ContactRepositoryTest
 
 
     @Test
-    public void findOneTest()
-    {
+    public void findOneTest() {
         Integer i = 1;
         ContactEntity c = contactRepository.findOne(i);
         assertEquals("Contact1", c.getContactName());
@@ -92,24 +87,21 @@ public class ContactRepositoryTest
 
 
     @Test
-    public void existsTest()
-    {
+    public void existsTest() {
         assertTrue(contactRepository.exists(2));
         assertFalse(contactRepository.exists(10));
     }
 
 
     @Test
-    public void findAllTest()
-    {
+    public void findAllTest() {
         Iterable<ContactEntity> c = contactRepository.findAll();
         assertEquals(c.spliterator().getExactSizeIfKnown(), contactRepository.count());
     }
 
 
     @Test
-    public void findAllSpecifiedTest()
-    {
+    public void findAllSpecifiedTest() {
         ArrayList<ContactEntity> cList = new ArrayList<>();
         cList.add(0, contactRepository.findOne(1));
         cList.add(1, contactRepository.findOne(2));
@@ -125,8 +117,7 @@ public class ContactRepositoryTest
     }
 
     @Test
-    public void countTest()
-    {
+    public void countTest() {
 
         String selectQuery = "SELECT * FROM contact\n";
         List resultSet = jdbcTemplate.queryForList(selectQuery);
@@ -135,24 +126,21 @@ public class ContactRepositoryTest
     }
 
     @Test
-    public void deleteByContactIdTest()
-    {
+    public void deleteByContactIdTest() {
         contactRepository.delete(1);
         assertFalse(contactRepository.exists(1));
     }
 
 
     @Test
-    public void deleteByContactEntityTest()
-    {
+    public void deleteByContactEntityTest() {
         contactRepository.delete(contactRepository.findOne(1));
         assertFalse(contactRepository.exists(1));
     }
 
 
     @Test
-    public void deleteMultipleContactsTest()
-    {
+    public void deleteMultipleContactsTest() {
         ArrayList<ContactEntity> cLists = new ArrayList<>();
 
         cLists.add(contactRepository.findOne(1));
@@ -168,8 +156,7 @@ public class ContactRepositoryTest
 
 
     @Test
-    public void deleteAllTest()
-    {
+    public void deleteAllTest() {
         Iterable<ContactEntity> c = contactRepository.findAll();
         contactRepository.delete(c);
         assertEquals(0, contactRepository.count());

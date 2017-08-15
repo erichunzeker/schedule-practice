@@ -13,23 +13,21 @@ import java.util.Iterator;
 
 /**
  * Created by ehunzeker on 6/5/17.
- */@Controller
-public class FrontDeskStaffController
-{
+ */
+@Controller
+public class FrontDeskStaffController {
     @Autowired
     FrontDeskStaffRepository frontDeskStaffRepository;
 
     @RequestMapping(value = "/frontdeskstaff")
-    public String frontDeskStaff(Model model)
-    {
+    public String frontDeskStaff(Model model) {
         createList(model);
 
         return "frontdeskstaff";
     }
 
     @RequestMapping(value = "/frontdeskstaff/find")
-    public String frontDeskStaffFind(@RequestParam(value="id")Integer id, Model model)
-    {
+    public String frontDeskStaffFind(@RequestParam(value = "id") Integer id, Model model) {
 
         model.addAttribute("frontdeskstaffs", frontDeskStaffRepository.findOne(id));
 
@@ -37,8 +35,7 @@ public class FrontDeskStaffController
     }
 
     @RequestMapping(value = "/frontdeskstaff/delete")
-    public String frontDeskStaffDelete(@RequestParam(value="id")Integer id, Model model)
-    {
+    public String frontDeskStaffDelete(@RequestParam(value = "id") Integer id, Model model) {
         frontDeskStaffRepository.delete(id);
 
         createList(model);
@@ -47,8 +44,7 @@ public class FrontDeskStaffController
     }
 
     @RequestMapping(value = "/frontdeskstaff/add")
-    public String frontDeskStaff(@RequestParam(value="firstname")String firstname, @RequestParam(value="lastname")String lastname, Model model)
-    {
+    public String frontDeskStaff(@RequestParam(value = "firstname") String firstname, @RequestParam(value = "lastname") String lastname, Model model) {
         FrontDeskStaffEntity frontDeskStaffEntity = new FrontDeskStaffEntity();
         frontDeskStaffEntity.setFirstName(firstname);
         frontDeskStaffEntity.setLastName(lastname);
@@ -59,11 +55,10 @@ public class FrontDeskStaffController
         return "frontdeskstaff";
     }
 
-    private void createList(Model model)
-    {
+    private void createList(Model model) {
         ArrayList<FrontDeskStaffEntity> frontDeskStaffEntityArrayList = new ArrayList<>();
         Iterator<FrontDeskStaffEntity> frontDeskStaffEntityIterator = frontDeskStaffRepository.findAll().iterator();
-        while(frontDeskStaffEntityIterator.hasNext()){
+        while (frontDeskStaffEntityIterator.hasNext()) {
             frontDeskStaffEntityArrayList.add(frontDeskStaffEntityIterator.next());
         }
 

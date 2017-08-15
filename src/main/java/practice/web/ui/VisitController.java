@@ -16,8 +16,7 @@ import java.util.Iterator;
  * Created by ehunzeker on 6/5/17.
  */
 @Controller
-public class VisitController
-{
+public class VisitController {
     @Autowired
     VisitRepository visitRepository;
 
@@ -25,16 +24,14 @@ public class VisitController
     ScheduleRepository scheduleRepository;
 
     @RequestMapping(value = "/visit")
-    public String visit(Model model)
-    {
+    public String visit(Model model) {
         createList(model);
 
         return "visit";
     }
 
     @RequestMapping(value = "/visit/find")
-    public String visitFind(@RequestParam(value="id")Integer id, Model model)
-    {
+    public String visitFind(@RequestParam(value = "id") Integer id, Model model) {
 
         model.addAttribute("visits", visitRepository.findOne(id));
 
@@ -42,8 +39,7 @@ public class VisitController
     }
 
     @RequestMapping(value = "/visit/delete")
-    public String visitDelete(@RequestParam(value="id")Integer id, Model model)
-    {
+    public String visitDelete(@RequestParam(value = "id") Integer id, Model model) {
         visitRepository.delete(id);
 
         createList(model);
@@ -53,8 +49,7 @@ public class VisitController
     }
 
     @RequestMapping(value = "/visit/add")
-    public String visit(@RequestParam(value="id")Integer id, Model model)
-    {
+    public String visit(@RequestParam(value = "id") Integer id, Model model) {
         VisitEntity visitEntity = new VisitEntity();
         visitEntity.setScheduleByScheduleId(scheduleRepository.findOne(id));
 
@@ -66,11 +61,10 @@ public class VisitController
         return "visit";
     }
 
-    private void createList(Model model)
-    {
+    private void createList(Model model) {
         ArrayList<VisitEntity> visitEntityArrayList = new ArrayList<>();
         Iterator<VisitEntity> doctorEntities = visitRepository.findAll().iterator();
-        while(doctorEntities.hasNext()){
+        while (doctorEntities.hasNext()) {
             visitEntityArrayList.add(doctorEntities.next());
         }
 

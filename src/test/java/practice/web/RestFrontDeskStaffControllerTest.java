@@ -2,8 +2,6 @@ package practice.web;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,8 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @Transactional
-public class RestFrontDeskStaffControllerTest
-{
+public class RestFrontDeskStaffControllerTest {
     @Autowired
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
@@ -41,19 +37,18 @@ public class RestFrontDeskStaffControllerTest
     @Autowired
     private FrontDeskStaffRepository frontDeskStaffRepository;
 
-    public RestFrontDeskStaffControllerTest()
-    {
+    public RestFrontDeskStaffControllerTest() {
         this.objectMapper = new ObjectMapper();
     }
 
     @Test
-    public void getAllFrontDeskStaffTest() throws Exception
-    {
+    public void getAllFrontDeskStaffTest() throws Exception {
         String s = mockMvc.perform(get("/frontdeskstaff/all")
                 .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        List<FrontDeskStaffEntity> frontDeskStaffEntityList = objectMapper.readValue(s, new TypeReference<List<FrontDeskStaffEntity>>(){});
+        List<FrontDeskStaffEntity> frontDeskStaffEntityList = objectMapper.readValue(s, new TypeReference<List<FrontDeskStaffEntity>>() {
+        });
         assertNotNull(frontDeskStaffEntityList);
     }
 
@@ -63,7 +58,7 @@ public class RestFrontDeskStaffControllerTest
         frontDeskStaffEntity.setLastName("NewFrontDeskStaff");
 
         String s = mockMvc.perform(post("/frontdeskstaff/add")
-                .header("PracticeId",1)
+                .header("PracticeId", 1)
                 .content(objectMapper.writeValueAsString(frontDeskStaffEntity))
                 .contentType("application/json"))
                 .andExpect(status().isOk())
@@ -74,8 +69,7 @@ public class RestFrontDeskStaffControllerTest
     }
 
     @Test
-    public void getFrontDeskStaffById() throws Exception
-    {
+    public void getFrontDeskStaffById() throws Exception {
         String s = mockMvc.perform(get("/frontdeskstaff/find").param("id", "1")
                 .contentType("application/json"))
                 .andExpect(status().isOk())

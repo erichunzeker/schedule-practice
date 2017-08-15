@@ -17,8 +17,7 @@ import java.util.Iterator;
  * Created by ehunzeker on 6/5/17.
  */
 @Controller
-public class ScheduleController
-{
+public class ScheduleController {
     @Autowired
     ScheduleRepository scheduleRepository;
 
@@ -29,16 +28,14 @@ public class ScheduleController
     DoctorRepository doctorRepository;
 
     @RequestMapping(value = "/schedule")
-    public String schedule(Model model)
-    {
+    public String schedule(Model model) {
         createList(model);
 
         return "schedule";
     }
 
     @RequestMapping(value = "/schedule/find")
-    public String scheduleFind(@RequestParam(value="id")Integer id, Model model)
-    {
+    public String scheduleFind(@RequestParam(value = "id") Integer id, Model model) {
 
         model.addAttribute("schedules", scheduleRepository.findOne(id));
 
@@ -46,8 +43,7 @@ public class ScheduleController
     }
 
     @RequestMapping(value = "/schedule/delete")
-    public String scheduleDelete(@RequestParam(value="id")Integer id, Model model)
-    {
+    public String scheduleDelete(@RequestParam(value = "id") Integer id, Model model) {
         scheduleRepository.delete(id);
 
         createList(model);
@@ -56,8 +52,7 @@ public class ScheduleController
     }
 
     @RequestMapping(value = "/schedule/add")
-    public String schedule(@RequestParam(value="id")Integer id, @RequestParam(value="docid")Integer docid, Model model)
-    {
+    public String schedule(@RequestParam(value = "id") Integer id, @RequestParam(value = "docid") Integer docid, Model model) {
         ScheduleEntity scheduleEntity = new ScheduleEntity();
         scheduleEntity.setFrontDeskStaffByFrontDeskStaffId(frontDeskStaffRepository.findOne(id));
         scheduleEntity.setDoctorByDocId(doctorRepository.findOne(docid));
@@ -68,11 +63,10 @@ public class ScheduleController
         return "schedule";
     }
 
-    private void createList(Model model)
-    {
+    private void createList(Model model) {
         ArrayList<ScheduleEntity> scheduleEntities = new ArrayList<>();
         Iterator<ScheduleEntity> scheduleEntityIterator = scheduleRepository.findAll().iterator();
-        while(scheduleEntityIterator.hasNext()){
+        while (scheduleEntityIterator.hasNext()) {
             scheduleEntities.add(scheduleEntityIterator.next());
         }
 

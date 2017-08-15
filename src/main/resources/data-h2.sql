@@ -17,16 +17,16 @@ INSERT INTO contact (contact_id, contact_name, pat_id) VALUES (7, 'Contact4', 4)
 INSERT INTO contact (contact_id, contact_name, pat_id) VALUES (8, 'Contact4', 5);
 INSERT INTO contact (contact_id, contact_name, pat_id) VALUES (9, 'Contact5', 6);
 
-INSERT INTO doctor (doc_id, doc_name) values (1, 'Doctor1');
-INSERT INTO doctor (doc_id, doc_name) values (2, 'Doctor2');
-INSERT INTO doctor (doc_id, doc_name) values (3, 'Doctor3');
+INSERT INTO doctor (doc_id, doc_name) VALUES (1, 'Doctor1');
+INSERT INTO doctor (doc_id, doc_name) VALUES (2, 'Doctor2');
+INSERT INTO doctor (doc_id, doc_name) VALUES (3, 'Doctor3');
 
-INSERT INTO front_desk_staff (front_desk_staff_id, first_name,last_name) VALUES (1, 'Anabelle','Jackson');
-INSERT INTO front_desk_staff (front_desk_staff_id, first_name,last_name) VALUES (2, 'Joan','Smith');
-INSERT INTO front_desk_staff (front_desk_staff_id, first_name,last_name) VALUES (3, 'Eric','Rubert');
-INSERT INTO front_desk_staff (front_desk_staff_id, first_name,last_name) VALUES (4, 'Bill','Lendeal');
-INSERT INTO front_desk_staff (front_desk_staff_id, first_name,last_name) VALUES (5, 'Beth','Oneal');
-INSERT INTO front_desk_staff (front_desk_staff_id, first_name,last_name) VALUES (6, 'Jill','Tyson');
+INSERT INTO front_desk_staff (front_desk_staff_id, first_name, last_name) VALUES (1, 'Anabelle', 'Jackson');
+INSERT INTO front_desk_staff (front_desk_staff_id, first_name, last_name) VALUES (2, 'Joan', 'Smith');
+INSERT INTO front_desk_staff (front_desk_staff_id, first_name, last_name) VALUES (3, 'Eric', 'Rubert');
+INSERT INTO front_desk_staff (front_desk_staff_id, first_name, last_name) VALUES (4, 'Bill', 'Lendeal');
+INSERT INTO front_desk_staff (front_desk_staff_id, first_name, last_name) VALUES (5, 'Beth', 'Oneal');
+INSERT INTO front_desk_staff (front_desk_staff_id, first_name, last_name) VALUES (6, 'Jill', 'Tyson');
 
 INSERT INTO schedule (schedule_id, front_desk_staff_id, doc_id) VALUES (1, 1, 1);
 INSERT INTO schedule (schedule_id, front_desk_staff_id, doc_id) VALUES (2, 2, 2);

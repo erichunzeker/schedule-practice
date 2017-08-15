@@ -11,17 +11,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import practice.model.PatientEntity;
-import practice.model.DoctorEntity;
-import practice.model.PatientEntity;
 import practice.repository.DoctorRepository;
 import practice.repository.PatientRepository;
 
 import javax.transaction.Transactional;
-
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -44,21 +40,20 @@ public class RestPatientControllerTest {
     @Autowired
     private PatientRepository patientRepository;
 
-    public RestPatientControllerTest()
-    {
+    public RestPatientControllerTest() {
 
         this.objectMapper = new ObjectMapper();
     }
 
     @Test
-    public void getAllPatientsTest() throws Exception
-    {
+    public void getAllPatientsTest() throws Exception {
 
         String s = mockMvc.perform(get("/patient/all")
                 .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        List<PatientEntity> patientEntityList = objectMapper.readValue(s, new TypeReference<List<PatientEntity>>(){});
+        List<PatientEntity> patientEntityList = objectMapper.readValue(s, new TypeReference<List<PatientEntity>>() {
+        });
         assertNotNull(patientEntityList);
         System.out.println(s);
     }
@@ -70,7 +65,7 @@ public class RestPatientControllerTest {
         patientEntity.setDoctorByDocId(doctorRepository.findOne(3));
 
         String s = mockMvc.perform(post("/patient/add")
-                .header("PracticeId",1)
+                .header("PracticeId", 1)
                 .content(objectMapper.writeValueAsString(patientEntity))
                 .contentType("application/json"))
                 .andExpect(status().isOk())
@@ -81,8 +76,7 @@ public class RestPatientControllerTest {
     }
 
     @Test
-    public void getPatientById() throws Exception
-    {
+    public void getPatientById() throws Exception {
         String s = mockMvc.perform(get("/patient/find").param("id", "1")
                 .contentType("application/json"))
                 .andExpect(status().isOk())

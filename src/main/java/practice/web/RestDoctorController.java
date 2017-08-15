@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import practice.model.DoctorEntity;
 import practice.repository.DoctorRepository;
 
@@ -17,22 +20,19 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  * Created by ehunzeker on 5/15/17.
  */
 @Controller
-@RequestMapping(path="/doctor")
-public class RestDoctorController
-{
+@RequestMapping(path = "/doctor")
+public class RestDoctorController {
     @Autowired
     private DoctorRepository doctorRepository;
 
     @RequestMapping(path = "/add", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<DoctorEntity> addNewDoctor (DoctorEntity doctorEntity)
-    {
+    public ResponseEntity<DoctorEntity> addNewDoctor(DoctorEntity doctorEntity) {
         DoctorEntity d = doctorRepository.save(doctorEntity);
         return new ResponseEntity<>(d, HttpStatus.OK);
     }
 
     @GetMapping(path = "/all", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DoctorEntity>> getAllUsers()
-    {
+    public ResponseEntity<List<DoctorEntity>> getAllUsers() {
 
         Iterable<DoctorEntity> d = doctorRepository.findAll();
         List<DoctorEntity> doctorEntityList = new ArrayList<>();
@@ -42,20 +42,17 @@ public class RestDoctorController
     }
 
     @RequestMapping(path = "/delete", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<DoctorEntity> deleteDoctor(@RequestParam("id") Integer id)
-    {
-        if(!doctorRepository.exists(id))
+    public ResponseEntity<DoctorEntity> deleteDoctor(@RequestParam("id") Integer id) {
+        if (!doctorRepository.exists(id))
             return null;
-        else
-        {
+        else {
             doctorRepository.delete(id);
             return new ResponseEntity<>(doctorRepository.findOne(id), HttpStatus.NO_CONTENT);
         }
     }
 
     @GetMapping(path = "/find", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<DoctorEntity> getDoctorById(@RequestParam("id") Integer id)
-    {
+    public ResponseEntity<DoctorEntity> getDoctorById(@RequestParam("id") Integer id) {
 
         DoctorEntity c = doctorRepository.findOne(id);
 

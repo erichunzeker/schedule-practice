@@ -1,6 +1,5 @@
 package practice.repository;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -13,12 +12,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import practice.model.PatientEntity;
 
-
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.*;
@@ -31,8 +28,7 @@ import static org.junit.Assert.*;
 @ActiveProfiles("test")
 @Rollback
 @Transactional
-public class PatientRepositoryTest
-{
+public class PatientRepositoryTest {
     private static final Logger log = LoggerFactory.getLogger(PatientRepositoryTest.class);
 
     @Autowired
@@ -42,16 +38,14 @@ public class PatientRepositoryTest
     private PatientRepository patientRepository;
 
     @Test
-    public void testPatientTable()
-    {
+    public void testPatientTable() {
         String selectQuery = "Select * from patient where name = 'Patient2'";
         List resultSet = jdbcTemplate.queryForList(selectQuery);
         log.debug(resultSet.toString());
     }
 
     @Test
-    public void saveOneNewPatientTest()
-    {
+    public void saveOneNewPatientTest() {
         PatientEntity p = new PatientEntity();
         p.setPatId(7);
         p.setName("NewPatient7");
@@ -61,8 +55,7 @@ public class PatientRepositoryTest
 
 
     @Test
-    public void saveListOfPatientsTest()
-    {
+    public void saveListOfPatientsTest() {
         ArrayList<PatientEntity> pList = new ArrayList<>();
         PatientEntity e1 = new PatientEntity();
         PatientEntity e2 = new PatientEntity();
@@ -84,8 +77,7 @@ public class PatientRepositoryTest
 
 
     @Test
-    public void findOneTest()
-    {
+    public void findOneTest() {
         Integer i = 1;
         PatientEntity p = patientRepository.findOne(i);
         assertEquals("Patient1", p.getName());
@@ -93,24 +85,21 @@ public class PatientRepositoryTest
 
 
     @Test
-    public void existsTest()
-    {
+    public void existsTest() {
         assertTrue(patientRepository.exists(2));
         assertFalse(patientRepository.exists(7));
     }
 
 
     @Test
-    public void findAllTest()
-    {
+    public void findAllTest() {
         Iterable<PatientEntity> p = patientRepository.findAll();
         assertEquals(p.spliterator().getExactSizeIfKnown(), patientRepository.count());
     }
 
 
     @Test
-    public void findAllSpecifiedTest()
-    {
+    public void findAllSpecifiedTest() {
         ArrayList<PatientEntity> pList = new ArrayList<>();
         pList.add(0, patientRepository.findOne(1));
         pList.add(1, patientRepository.findOne(2));
@@ -126,8 +115,7 @@ public class PatientRepositoryTest
     }
 
     @Test
-    public void countTest()
-    {
+    public void countTest() {
 
         String selectQuery = "SELECT * FROM patient\n";
         List resultSet = jdbcTemplate.queryForList(selectQuery);
@@ -136,24 +124,21 @@ public class PatientRepositoryTest
     }
 
     @Test
-    public void deleteByPatientIdTest()
-    {
+    public void deleteByPatientIdTest() {
         patientRepository.delete(1);
         assertFalse(patientRepository.exists(1));
     }
 
 
     @Test
-    public void deleteByPatientEntityTest()
-    {
+    public void deleteByPatientEntityTest() {
         patientRepository.delete(patientRepository.findOne(1));
         assertFalse(patientRepository.exists(1));
     }
 
 
     @Test
-    public void deleteMultiplePatientsTest()
-    {
+    public void deleteMultiplePatientsTest() {
         ArrayList<PatientEntity> pList = new ArrayList<>();
 
         pList.add(patientRepository.findOne(1));
@@ -169,8 +154,7 @@ public class PatientRepositoryTest
 
 
     @Test
-    public void deleteAllTest()
-    {
+    public void deleteAllTest() {
         Iterable<PatientEntity> p = patientRepository.findAll();
         patientRepository.delete(p);
         assertEquals(0, patientRepository.count());

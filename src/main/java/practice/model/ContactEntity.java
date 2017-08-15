@@ -3,8 +3,6 @@ package practice.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Objects;
 
 
@@ -46,7 +44,6 @@ public class ContactEntity {
 
         return Objects.equals(contactId, that.contactId) && (contactName != null ? contactName.equals(that.contactName) : that.contactName == null);
     }
-
 
 
     @ManyToOne//(cascade = CascadeType.ALL)

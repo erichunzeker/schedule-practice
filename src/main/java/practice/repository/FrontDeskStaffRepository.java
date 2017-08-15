@@ -6,7 +6,6 @@ import practice.model.FrontDeskStaffEntity;
 /**
  * Created by ehunzeker on 5/15/17.
  */
-public interface FrontDeskStaffRepository extends CrudRepository<FrontDeskStaffEntity, Integer>
-{
+public interface FrontDeskStaffRepository extends CrudRepository<FrontDeskStaffEntity, Integer> {
 
 }

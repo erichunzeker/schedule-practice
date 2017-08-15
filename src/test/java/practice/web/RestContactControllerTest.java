@@ -1,6 +1,5 @@
 package practice.web;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -8,11 +7,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import practice.model.ContactEntity;
 import practice.repository.ContactRepository;
 import practice.repository.PatientRepository;
@@ -21,7 +18,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,8 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @Transactional
-public class RestContactControllerTest
-{
+public class RestContactControllerTest {
     @Autowired
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
@@ -45,20 +40,19 @@ public class RestContactControllerTest
     @Autowired
     private ContactRepository contactRepository;
 
-    public RestContactControllerTest()
-    {
+    public RestContactControllerTest() {
         this.objectMapper = new ObjectMapper();
     }
 
     @Test
-    public void getAllContactsTest() throws Exception
-    {
+    public void getAllContactsTest() throws Exception {
 
         String s = mockMvc.perform(get("/contact/all")
                 .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        List<ContactEntity> contactEntityList = objectMapper.readValue(s, new TypeReference<List<ContactEntity>>(){});
+        List<ContactEntity> contactEntityList = objectMapper.readValue(s, new TypeReference<List<ContactEntity>>() {
+        });
         assertNotNull(contactEntityList);
     }
 
@@ -69,7 +63,7 @@ public class RestContactControllerTest
         contactEntity.setPatientByPatId(patientRepository.findOne(2));
 
         String s = mockMvc.perform(post("/contact/add")
-                .header("PracticeId",1)
+                .header("PracticeId", 1)
                 .content(objectMapper.writeValueAsString(contactEntity))
                 .contentType("application/json"))
                 .andExpect(status().isOk())
@@ -88,8 +82,7 @@ public class RestContactControllerTest
     }
 
     @Test
-    public void getContactById() throws Exception
-    {
+    public void getContactById() throws Exception {
         String s = mockMvc.perform(get("/contact/find").param("id", "1")
                 .contentType("application/json"))
                 .andExpect(status().isOk())

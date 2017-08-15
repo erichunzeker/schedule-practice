@@ -10,20 +10,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import practice.model.DoctorEntity;
-import practice.model.FrontDeskStaffEntity;
 import practice.model.ScheduleEntity;
 import practice.repository.DoctorRepository;
 import practice.repository.FrontDeskStaffRepository;
 import practice.repository.ScheduleRepository;
 
-import javax.print.Doc;
 import javax.transaction.Transactional;
-
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -51,21 +46,20 @@ public class RestScheduleControllerTest {
     @Autowired
     private ScheduleRepository scheduleRepository;
 
-    public RestScheduleControllerTest()
-    {
+    public RestScheduleControllerTest() {
 
         this.objectMapper = new ObjectMapper();
     }
 
     @Test
-    public void getAllSchedulesTest() throws Exception
-    {
+    public void getAllSchedulesTest() throws Exception {
 
         String s = mockMvc.perform(get("/schedule/all")
                 .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        List<ScheduleEntity> scheduleEntityList = objectMapper.readValue(s, new TypeReference<List<ScheduleEntity>>(){});
+        List<ScheduleEntity> scheduleEntityList = objectMapper.readValue(s, new TypeReference<List<ScheduleEntity>>() {
+        });
         assertNotNull(scheduleEntityList);
         System.out.println(s);
 
@@ -78,7 +72,7 @@ public class RestScheduleControllerTest {
         scheduleEntity.setFrontDeskStaffByFrontDeskStaffId(frontDeskStaffRepository.findOne(6));
 
         String s = mockMvc.perform(post("/schedule/add")
-                .header("PracticeId",1)
+                .header("PracticeId", 1)
                 .content(objectMapper.writeValueAsString(scheduleEntity))
                 .contentType("application/json"))
                 .andExpect(status().isOk())
@@ -89,8 +83,7 @@ public class RestScheduleControllerTest {
     }
 
     @Test
-    public void getScheduleById() throws Exception
-    {
+    public void getScheduleById() throws Exception {
         String s = mockMvc.perform(get("/schedule/find").param("id", "1")
                 .contentType("application/json"))
                 .andExpect(status().isOk())

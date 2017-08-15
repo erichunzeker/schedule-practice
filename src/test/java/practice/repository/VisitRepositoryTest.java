@@ -17,9 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by ehunzeker on 5/16/17.
@@ -29,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 @ActiveProfiles("test")
 @Rollback
 @Transactional
-public class VisitRepositoryTest{
+public class VisitRepositoryTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
@@ -43,8 +41,7 @@ public class VisitRepositoryTest{
     }
 
     @Test
-    public void saveOneNewVisitTest()
-    {
+    public void saveOneNewVisitTest() {
         VisitEntity v = new VisitEntity();
         visitRepository.save(v);
         assertTrue(visitRepository.exists(v.getVisitId()));
@@ -52,8 +49,7 @@ public class VisitRepositoryTest{
 
 
     @Test
-    public void saveListOfVisitsTest()
-    {
+    public void saveListOfVisitsTest() {
         ArrayList<VisitEntity> cLists = new ArrayList<>();
         VisitEntity e1 = new VisitEntity();
         VisitEntity e2 = new VisitEntity();
@@ -73,8 +69,7 @@ public class VisitRepositoryTest{
 
 
     @Test
-    public void findOneTest()
-    {
+    public void findOneTest() {
         Integer i = 1;
         VisitEntity v = visitRepository.findOne(i);
         assertEquals(new Integer(1), new Integer(v.getVisitId()));
@@ -82,24 +77,21 @@ public class VisitRepositoryTest{
 
 
     @Test
-    public void existsTest()
-    {
+    public void existsTest() {
         assertTrue(visitRepository.exists(2));
         assertFalse(visitRepository.exists(7));
     }
 
 
     @Test
-    public void findAllTest()
-    {
+    public void findAllTest() {
         Iterable<VisitEntity> v = visitRepository.findAll();
         assertEquals(v.spliterator().getExactSizeIfKnown(), visitRepository.count());
     }
 
 
     @Test
-    public void findAllSpecifiedTest()
-    {
+    public void findAllSpecifiedTest() {
         ArrayList<VisitEntity> cList = new ArrayList<>();
         cList.add(0, visitRepository.findOne(1));
         cList.add(1, visitRepository.findOne(2));
@@ -115,8 +107,7 @@ public class VisitRepositoryTest{
     }
 
     @Test
-    public void countTest()
-    {
+    public void countTest() {
 
         String selectQuery = "SELECT * FROM visit\n";
         List resultSet = jdbcTemplate.queryForList(selectQuery);
@@ -125,24 +116,21 @@ public class VisitRepositoryTest{
     }
 
     @Test
-    public void deleteByVisitIdTest()
-    {
+    public void deleteByVisitIdTest() {
         visitRepository.delete(1);
         assertFalse(visitRepository.exists(1));
     }
 
 
     @Test
-    public void deleteByVisitEntityTest()
-    {
+    public void deleteByVisitEntityTest() {
         visitRepository.delete(visitRepository.findOne(1));
         assertFalse(visitRepository.exists(1));
     }
 
 
     @Test
-    public void deleteMultipleVisitsTest()
-    {
+    public void deleteMultipleVisitsTest() {
         ArrayList<VisitEntity> cLists = new ArrayList<>();
 
         cLists.add(visitRepository.findOne(1));
@@ -158,8 +146,7 @@ public class VisitRepositoryTest{
 
 
     @Test
-    public void deleteAllTest()
-    {
+    public void deleteAllTest() {
         Iterable<VisitEntity> v = visitRepository.findAll();
         visitRepository.delete(v);
         assertEquals(0, visitRepository.count());

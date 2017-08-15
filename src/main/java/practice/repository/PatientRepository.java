@@ -6,7 +6,6 @@ import practice.model.PatientEntity;
 /**
  * Created by ehunzeker on 5/15/17.
  */
-public interface PatientRepository extends CrudRepository<PatientEntity, Integer>
-{
+public interface PatientRepository extends CrudRepository<PatientEntity, Integer> {
 
 }
