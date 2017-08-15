@@ -221,3 +221,25 @@ li a:hover:not(.active) {
     font-weight: bold;
     letter-spacing: .2em;
 }
+
+
+input[type=text] {
+    width: 10%;
+    padding: 8px 8px;
+    background-color: lightyellow;
+    font: 'Raleway', sans-serif;
+    color: lightslategray;
+    margin: 8px 0;
+    border: 3px solid lightslategray;
+}
+
+
+input[type=submit] {
+    width: 5%;
+    padding: 8px 8px;
+    background-color: lightyellow;
+    font: 'Raleway', sans-serif;
+    color: lightslategray;
+    margin: 8px 0;
+    border: 3px solid lightslategray;
+}
