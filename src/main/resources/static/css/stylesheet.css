@@ -48,7 +48,7 @@ em {
 table {
     background-color: lightcoral;
     position: fixed;
-    bottom: 25%;
+    top: 20%;
     left: 25%;
     width: 100%;
 
@@ -192,4 +192,32 @@ li a:hover:not(.active) {
 
 .active {
     background-color: #4CAF50;
+}
+
+#find{
+    font: 'Raleway', sans-serif;
+    color: lightslategray;
+    font-weight: bold;
+    letter-spacing: .2em;
+}
+
+#add{
+    font: 'Raleway', sans-serif;
+    color: lightslategray;
+    font-weight: bold;
+    letter-spacing: .2em;
+}
+
+#delete{
+    font: 'Raleway', sans-serif;
+    color: lightslategray;
+    font-weight: bold;
+    letter-spacing: .2em;
+}
+
+#all{
+    font: 'Raleway', sans-serif;
+    color: lightslategray;
+    font-weight: bold;
+    letter-spacing: .2em;
 }
